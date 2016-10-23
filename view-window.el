@@ -726,7 +726,7 @@ for determining performing sit-for or not."
       (select-window selected-window)))))))
 
 ;;; loadablep does not exist in emacs18
-(defun file-in-directory-p (filename path-list)
+(defun file-in-directories-p (filename path-list)
   (let ((path nil)
 	(return nil))
     (while (not (null path-list))
@@ -769,8 +769,8 @@ for determining performing sit-for or not."
 ;;  (bury-buffer (current-buffer))
   (switch-to-buffer (car (nreverse (view-window-buffer-list)))))
 
-(if (or (file-in-directory-p "active-buffers.elc" load-path)
-	 (file-in-directory-p "active-buffers.el" load-path))
+(if (or (file-in-directories-p "active-buffers.elc" load-path)
+	 (file-in-directories-p "active-buffers.el" load-path))
     (progn
       (require 'active-buffers)
       ;; These are useful changing buffer.
