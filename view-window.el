@@ -24,7 +24,7 @@
 ;; LCD Archive Entry:
 ;; view-window|Yasuhiko WATANABE|ywata@k2.t.u-tokyo.ac.jp|
 ;; manipulete other/current windows with less like keybinding|
-;; 01-Dec-1994|1.21|~/misc/view-window.el.Z|
+;; 24-Oct-2016|1.22|~/misc/view-window.el.Z|
 
 
 ;;;;     "view-less.el" inspired me to write the original version of 
