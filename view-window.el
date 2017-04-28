@@ -737,24 +737,22 @@ for determining performing sit-for or not."
 	       (setq return t)))
     return))
 
-(defun view-window-buffer-p (buffer)
-  (let ((buffer-name (buffer-name buffer)))
-    (if (or (string-match "\\*" buffer-name) (string-match " " buffer-name))
+(defun view-window-ignore-buffer-p (buffer)
+  (let ((buf-name (buffer-name buffer)))
+    (if (or (string-match "\\*" buf-name) (string-match " " buf-name) (eq (view-window-buffer-major-mode buffer) 'dired-mode))
 	t
       nil)))
 
-(defun view-window-buffer-list nil
-   (let ((buf (buffer-list))
- 	(buffer-list nil)
- 	(buffer-list-car nil))
-     (while (not (null buf))
-       (setq buffer-list-car (car buf))
-       (if (not (view-window-buffer-p buffer-list-car))
- 	  (setq buffer-list 
- 		(append buffer-list (list buffer-list-car))))
-       (setq buf (cdr buf)))
-    buffer-list))
+(require 'cl-lib)
 
+(defun view-window-buffer-list nil
+    (cl-remove-if 'view-window-ignore-buffer-p (buffer-list)))
+
+
+(defun view-window-buffer-major-mode (buffer)
+  (save-excursion
+    (with-current-buffer buffer
+    major-mode)))
 
 ;; a -> b -> c
 ;;
@@ -779,7 +777,6 @@ for determining performing sit-for or not."
   (progn
     (view-window-macro view-window-next-active-buffer view-window-next-buffer nil t nil)
     (view-window-macro view-window-prev-active-buffer view-window-prev-buffer nil t nil)))
-
 
 
 (provide 'view-window)
